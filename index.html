@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ABST Warehouse – Maasvlakte Rotterdam</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green: #2A7A27;
+      --green-dark: #1c5a1a;
+      --green-light: #3a9e36;
+      --red: #E8391A;
+      --red-dark: #c02e13;
+      --red-light: #f04e2e;
+      --offwhite: #f5f3ef;
+      --charcoal: #1a1a1a;
+      --mid: #444;
+      --steel: #8a9099;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--offwhite);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .display {
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      border-bottom: 4px solid var(--red);
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.10);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+    }
+    .nav-logo img {
+      height: 56px;
+      object-fit: contain;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--charcoal);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--red); }
+    .translate-btn {
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 3px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+    .translate-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--charcoal);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.28;
+      transform: scale(1.05);
+      animation: heroZoom 18s ease-in-out infinite alternate;
+    }
+    @keyframes heroZoom {
+      from { transform: scale(1.05); }
+      to   { transform: scale(1.12); }
+    }
+
+    /* Grid lines overlay */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Red accent bar on left */
+    .hero-accent-bar {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 6px;
+      background: linear-gradient(to bottom, var(--red), var(--red-dark));
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      width: 100%;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--red);
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      margin-bottom: 28px;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+      animation: fadeSlideIn 0.7s ease both;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.7);
+    }
+
+    .hero-title {
+      font-size: clamp(54px, 8vw, 96px);
+      font-weight: 900;
+      line-height: 0.92;
+      color: #fff;
+      text-transform: uppercase;
+      animation: fadeSlideIn 0.7s 0.15s ease both;
+    }
+    .hero-title .accent { color: var(--red); }
+    .hero-title .sub { color: var(--green-light); }
+
+    .hero-divider {
+      width: 80px;
+      height: 4px;
+      background: var(--red);
+      margin: 28px 0;
+      animation: fadeSlideIn 0.7s 0.3s ease both;
+    }
+
+    .hero-desc {
+      font-size: 18px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.82);
+      max-width: 580px;
+      animation: fadeSlideIn 0.7s 0.45s ease both;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+      animation: fadeSlideIn 0.7s 0.6s ease both;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(232,57,26,0.4);
+    }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,57,26,0.5); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 14px 36px;
+      border: 2px solid rgba(255,255,255,0.4);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+    .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+    .btn-outline:active { transform: translateY(0); }
+
+    /* Hero badges */
+    .hero-badges {
+      position: absolute;
+      right: 48px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      animation: fadeSlideIn 0.7s 0.8s ease both;
+    }
+    .hero-badge {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+      padding: 20px 24px;
+      text-align: center;
+      min-width: 160px;
+    }
+    .hero-badge-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--red);
+      line-height: 1;
+    }
+    .hero-badge-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-top: 4px;
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MODES BAR ── */
+    .modes-bar {
+      background: var(--green);
+      color: #fff;
+    }
+    .modes-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .mode-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 28px 32px;
+      border-right: 1px solid rgba(255,255,255,0.15);
+      transition: background 0.2s;
+    }
+    .mode-item:last-child { border-right: none; }
+    .mode-item:hover { background: var(--green-dark); }
+    .mode-icon {
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+    .mode-text-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .mode-text-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      margin-top: 2px;
+    }
+
+    /* ── OVER ONS ── */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 96px 24px;
+    }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(38px, 5vw, 60px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 0.95;
+      color: var(--charcoal);
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 4px;
+      background: var(--red);
+      margin: 24px 0;
+    }
+
+    .over-ons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .over-ons-body {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--mid);
+    }
+    .over-ons-body p + p { margin-top: 20px; }
+    .over-ons-body strong { color: var(--charcoal); font-weight: 600; }
+
+    .over-ons-visual {
+      position: relative;
+    }
+    .over-ons-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .over-ons-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(42,122,39,0.2), transparent 60%);
+    }
+    .over-ons-badge {
+      position: absolute;
+      bottom: -24px;
+      left: -24px;
+      background: var(--red);
+      color: #fff;
+      padding: 24px 28px;
+      font-family: 'Barlow Condensed', sans-serif;
+      box-shadow: 0 8px 30px rgba(232,57,26,0.35);
+    }
+    .over-ons-badge-num {
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .over-ons-badge-text {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    /* ── KENMERKEN ── */
+    .kenmerken-section {
+      background: var(--charcoal);
+      padding: 80px 0;
+    }
+    .kenmerken-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .kenmerken-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      margin-top: 56px;
+    }
+    .kenmerk-card {
+      padding: 40px 28px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .kenmerk-card:last-child { border-right: none; }
+    .kenmerk-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .kenmerk-card:hover { background: rgba(255,255,255,0.04); }
+    .kenmerk-card:hover::before { transform: scaleX(1); }
+    .kenmerk-icon {
+      font-size: 40px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .kenmerk-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 1.1;
+    }
+    .kenmerk-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    /* ── DIENSTEN ── */
+    .diensten-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 56px;
+    }
+    .dienst-card {
+      background: #fff;
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 4px solid transparent;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+    }
+    .dienst-card:hover {
+      border-bottom-color: var(--red);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      transform: translateY(-4px);
+    }
+    .dienst-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 80px;
+      font-weight: 900;
+      color: rgba(42,122,39,0.08);
+      line-height: 1;
+      position: absolute;
+      top: 16px;
+      right: 24px;
+    }
+    .dienst-icon {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    .dienst-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--charcoal);
+    }
+    .dienst-body {
+      font-size: 15px;
+      color: var(--mid);
+      margin-top: 12px;
+      line-height: 1.65;
+    }
+
+    /* ── CONTACT ── */
+    .contact-section {
+      background: #fff;
+    }
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 96px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .contact-detail:last-of-type { border-bottom: none; }
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--red);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .contact-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--steel);
+      margin-bottom: 4px;
+    }
+    .contact-value {
+      font-size: 16px;
+      color: var(--charcoal);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .contact-value a {
+      color: var(--green);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-value a:hover { color: var(--green-dark); }
+
+    .contact-form-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      margin-bottom: 28px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--steel);
+      margin-bottom: 8px;
+    }
+    .form-control {
+      width: 100%;
+      border: 2px solid #e8e8e8;
+      padding: 14px 18px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      color: var(--charcoal);
+      background: #fafafa;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .form-control:focus { border-color: var(--green); background: #fff; }
+    textarea.form-control { resize: vertical; min-height: 120px; }
+    .form-submit {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      padding: 16px 40px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 4px 16px rgba(232,57,26,0.3);
+    }
+    .form-submit:hover { background: var(--red-dark); transform: translateY(-2px); }
+    .form-submit:active { transform: translateY(0); }
+
+    /* ── MAP STRIP ── */
+    .map-strip {
+      width: 100%;
+      height: 320px;
+      background: #d0d8d4;
+      position: relative;
+      overflow: hidden;
+    }
+    .map-strip iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: grayscale(0.3) contrast(1.05);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.5);
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-logo img { height: 44px; opacity: 0.7; }
+    .footer-copy { font-size: 13px; }
+    .footer-red { color: var(--red); font-weight: 600; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .hero-badges { display: none; }
+      .kenmerken-grid { grid-template-columns: repeat(3, 1fr); }
+      .kenmerk-card:nth-child(3) { border-right: none; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .modes-inner { grid-template-columns: 1fr; }
+      .mode-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); }
+      .mode-item:last-child { border-bottom: none; }
+      .over-ons-grid { grid-template-columns: 1fr; gap: 48px; }
+      .over-ons-badge { bottom: -16px; left: -8px; }
+      .kenmerken-grid { grid-template-columns: repeat(2, 1fr); }
+      .kenmerk-card { border-right: 1px solid rgba(255,255,255,0.08); }
+      .kenmerk-card:nth-child(even) { border-right: none; }
+      .diensten-grid { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+    }
+    @media (max-width: 480px) {
+      .kenmerken-grid { grid-template-columns: 1fr; }
+      .kenmerk-card { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Highlight text */
+    .text-red { color: var(--red); }
+    .text-green { color: var(--green); }
+
+    /* Google Translate notification bar */
+    .gt-bar {
+      background: var(--green);
+      color: #fff;
+      text-align: center;
+      padding: 10px 24px;
+      font-size: 13px;
+      font-family: 'Barlow', sans-serif;
+      display: none;
+    }
+    .gt-bar.show { display: block; }
+    .gt-bar a { color: #fff; text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<!-- Google Translate element (hidden) -->
+<div id="google_translate_element" style="display:none;"></div>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="logo.jpg" alt="ABST Warehouse logo" />
+    </a>
+    <div class="nav-links">
+      <a href="#over-ons">Over ons</a>
+      <a href="#diensten">Diensten</a>
+      <a href="#contact">Contact</a>
+      <a href="#" class="translate-btn" onclick="translatePage(event)">
+        🌐 English
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-accent-bar"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">Maasvlakte Rotterdam</div>
+    <h1 class="hero-title">
+      ABST<br>
+      <span class="sub">Ware</span><span class="accent">house</span>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">
+      Gelegen in het hart van de Rotterdamse haven biedt ABST Warehouse op de Maasvlakte een strategische locatie voor opslag, distributie en logistieke dienstverlening.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#contact" class="btn-primary">Neem contact op</a>
+      <a href="#over-ons" class="btn-outline">Meer informatie</a>
+    </div>
+  </div>
+
+  <div class="hero-badges">
+    <div class="hero-badge">
+      <div class="hero-badge-num">3</div>
+      <div class="hero-badge-label">Multimodale verbindingen</div>
+    </div>
+    <div class="hero-badge">
+      <div class="hero-badge-num">24/7</div>
+      <div class="hero-badge-label">Operationeel</div>
+    </div>
+    <div class="hero-badge">
+      <div class="hero-badge-num">NL</div>
+      <div class="hero-badge-label">Poort naar Europa</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MODES BAR ── -->
+<div class="modes-bar">
+  <div class="modes-inner">
+    <div class="mode-item">
+      <span class="mode-icon">🚢</span>
+      <div>
+        <div class="mode-text-title">Zee</div>
+        <div class="mode-text-sub">Directe haventoegang Maasvlakte</div>
+      </div>
+    </div>
+    <div class="mode-item">
+      <span class="mode-icon">🚛</span>
+      <div>
+        <div class="mode-text-title">Weg</div>
+        <div class="mode-text-sub">Optimale wegverbindingen</div>
+      </div>
+    </div>
+    <div class="mode-item">
+      <span class="mode-icon">🚂</span>
+      <div>
+        <div class="mode-text-title">Spoor</div>
+        <div class="mode-text-sub">Railverbindingen naar Europa</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── OVER ONS ── -->
+<section id="over-ons">
+  <div class="section">
+    <div class="over-ons-grid">
+      <div class="reveal">
+        <div class="section-label">Over ABST Warehouse</div>
+        <h2 class="section-title">Efficiëntie &<br><span class="text-red">logistiek</span><br>op topniveau</h2>
+        <div class="section-divider"></div>
+        <div class="over-ons-body">
+          <p>Alle <strong>multimodale oplossingen</strong> binnen handbereik: zee, weg en spoor! ABST Warehouse biedt een totaal concept aan logistieke dienstverlening voor im- en export.</p>
+          <p>ABST is het warehouse waar <strong>alle facetten bij elkaar komen</strong>. Laat ons weten waarmee we u van dienst kunnen zijn!</p>
+        </div>
+      </div>
+      <div class="over-ons-visual reveal" style="transition-delay:0.15s">
+        <img class="over-ons-img" src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&q=80" alt="Warehouse interior" />
+        <div class="over-ons-img-overlay"></div>
+        <div class="over-ons-badge">
+          <div class="over-ons-badge-num">100%</div>
+          <div class="over-ons-badge-text">Klantgericht</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── KENMERKEN ── -->
+<div class="kenmerken-section">
+  <div class="kenmerken-inner">
+    <div class="reveal">
+      <div class="section-label" style="color:rgba(255,255,255,0.5)">Waarom ABST</div>
+      <h2 class="section-title" style="color:#fff">Onze <span class="text-red">kenmerken</span></h2>
+    </div>
+    <div class="kenmerken-grid">
+      <div class="kenmerk-card reveal">
+        <span class="kenmerk-icon">🎯</span>
+        <div class="kenmerk-title">Klant&shy;gericht & flexibel</div>
+        <div class="kenmerk-desc">Uw wensen staan altijd centraal in onze werkwijze.</div>
+      </div>
+      <div class="kenmerk-card reveal" style="transition-delay:0.1s">
+        <span class="kenmerk-icon">🕐</span>
+        <div class="kenmerk-title">Brede openings&shy;tijden</div>
+        <div class="kenmerk-desc">Ruime beschikbaarheid voor al uw logistieke behoeften.</div>
+      </div>
+      <div class="kenmerk-card reveal" style="transition-delay:0.2s">
+        <span class="kenmerk-icon">⚡</span>
+        <div class="kenmerk-title">Pro-activiteit</div>
+        <div class="kenmerk-desc">Wij denken vooruit en handelen proactief voor u.</div>
+      </div>
+      <div class="kenmerk-card reveal" style="transition-delay:0.3s">
+        <span class="kenmerk-icon">🔄</span>
+        <div class="kenmerk-title">Flexibiliteit</div>
+        <div class="kenmerk-desc">Snel schakelen op veranderende marktomstandigheden.</div>
+      </div>
+      <div class="kenmerk-card reveal" style="transition-delay:0.4s">
+        <span class="kenmerk-icon">💪</span>
+        <div class="kenmerk-title">Sterk team</div>
+        <div class="kenmerk-desc">Ervaren professionals met kennis van de logistieke sector.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── DIENSTEN ── -->
+<section id="diensten">
+  <div class="section">
+    <div class="reveal">
+      <div class="section-label">Onze dienstverlening</div>
+      <h2 class="section-title">Totaal <span class="text-red">concept</span><br>logistiek</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="diensten-grid">
+      <div class="dienst-card reveal">
+        <div class="dienst-num">01</div>
+        <div class="dienst-icon">📦</div>
+        <div class="dienst-title">Opslag</div>
+        <div class="dienst-body">Veilige en efficiënte opslagoplossingen op strategische locatie aan de Maasvlakte voor uw goederen.</div>
+      </div>
+      <div class="dienst-card reveal" style="transition-delay:0.1s">
+        <div class="dienst-num">02</div>
+        <div class="dienst-icon">🔄</div>
+        <div class="dienst-title">Distributie</div>
+        <div class="dienst-body">Snelle en betrouwbare distributie via zee, weg en spoor naar uw bestemming in Europa en wereldwijd.</div>
+      </div>
+      <div class="dienst-card reveal" style="transition-delay:0.2s">
+        <div class="dienst-num">03</div>
+        <div class="dienst-icon">🌍</div>
+        <div class="dienst-title">Im- & export</div>
+        <div class="dienst-body">Volledig ontzorgd totaalconcept voor al uw import- en exportactiviteiten vanuit Rotterdam.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <div class="reveal">
+      <div class="section-label">Bereikbaarheid</div>
+      <h2 class="section-title">Neem <span class="text-red">contact</span><br>op</h2>
+      <div class="section-divider"></div>
+
+      <div class="contact-detail">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Adres</div>
+          <div class="contact-value">
+            Makassarstraat 1<br>
+            3199 LL Maasvlakte Rotterdam
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-label">Algemeen</div>
+          <div class="contact-value">
+            <a href="mailto:info@abstwarehouse.nl">info@abstwarehouse.nl</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-icon">💼</div>
+        <div>
+          <div class="contact-label">Sales</div>
+          <div class="contact-value">
+            <a href="mailto:sales@abstwarehouse.nl">sales@abstwarehouse.nl</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-icon">🏢</div>
+        <div>
+          <div class="contact-label">Kantoor</div>
+          <div class="contact-value">
+            <a href="mailto:office@abstwarehouse.nl">office@abstwarehouse.nl</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="transition-delay:0.15s">
+      <div class="contact-form-title">Stuur ons een bericht</div>
+      <div>
+        <div class="form-group">
+          <label class="form-label">Naam</label>
+          <input type="text" class="form-control" placeholder="Uw naam" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Bedrijf</label>
+          <input type="text" class="form-control" placeholder="Uw bedrijf" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">E-mailadres</label>
+          <input type="email" class="form-control" placeholder="uw@email.nl" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Bericht</label>
+          <textarea class="form-control" placeholder="Waarmee kunnen wij u van dienst zijn?"></textarea>
+        </div>
+        <button class="form-submit">Verstuur bericht →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MAP ── -->
+<div class="map-strip">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2460.0!2d4.0!3d51.95!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c5b7!2sMaasvlakte%2C%20Rotterdam!5e0!3m2!1snl!2snl!4v1"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="logo.jpg" alt="ABST Warehouse" />
+    </div>
+    <div class="footer-copy">
+      © 2024 <span class="footer-red">ABST Warehouse</span> · Makassarstraat 1, 3199 LL Maasvlakte Rotterdam
+    </div>
+    <div style="font-size:13px;">
+      <a href="mailto:info@abstwarehouse.nl" style="color:rgba(255,255,255,0.5); text-decoration:none;">info@abstwarehouse.nl</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Google Translate
+  function translatePage(e) {
+    e.preventDefault();
+    // Load Google Translate and switch to English
+    if (!window._gtLoaded) {
+      window._gtLoaded = true;
+      const script = document.createElement('script');
+      script.src = 'https://translate.google.com/translate?u=' +
+        encodeURIComponent(window.location.href) + '&hl=en&sl=nl&tl=en&ie=UTF-8&oe=UTF-8';
+      // Open in new tab as a translated version
+    }
+    // Open Google Translate version
+    const url = 'https://translate.google.com/translate?sl=nl&tl=en&u=' + encodeURIComponent(window.location.href);
+    window.open(url, '_blank');
+  }
+</script>
+
+<!-- Google Translate widget script (optional embed) -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'nl',
+    includedLanguages: 'en',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
