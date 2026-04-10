@@ -15,1002 +15,460 @@
       --green-light: #3a9e36;
       --red: #E8391A;
       --red-dark: #c02e13;
-      --red-light: #f04e2e;
       --offwhite: #f5f3ef;
-      --charcoal: #1a1a1a;
-      --mid: #444;
-      --steel: #8a9099;
+      --lightgray: #eeecea;
+      --mid: #555;
+      --steel: #7a8490;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Barlow', sans-serif; background: var(--offwhite); color: #222; overflow-x: hidden; }
+    h1, h2, h3 { font-family: 'Barlow Condensed', sans-serif; letter-spacing: -0.01em; }
 
-    body {
-      font-family: 'Barlow', sans-serif;
-      background: var(--offwhite);
-      color: var(--charcoal);
-      overflow-x: hidden;
-    }
-
-    h1, h2, h3, .display {
-      font-family: 'Barlow Condensed', sans-serif;
-      letter-spacing: -0.01em;
-    }
+    /* Outlined heading utilities */
+    .ol-green { color: var(--green); -webkit-text-stroke: 2px #111; paint-order: stroke fill; }
+    .ol-red   { color: var(--red);   -webkit-text-stroke: 2px #111; paint-order: stroke fill; }
 
     /* ── NAV ── */
-    nav {
-      background: #fff;
-      border-bottom: 4px solid var(--red);
-      position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.10);
-    }
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 24px;
-    }
-    .nav-logo img {
-      height: 56px;
-      object-fit: contain;
-    }
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      align-items: center;
-    }
-    .nav-links a {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--charcoal);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
+    nav { background: #fff; border-bottom: 4px solid var(--red); position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 16px rgba(0,0,0,0.07); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; }
+    .nav-logo img { height: 56px; object-fit: contain; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: 0.05em; color: #333; text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: var(--red); }
-    .translate-btn {
-      background: var(--green);
-      color: #fff;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 3px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      text-decoration: none;
-    }
-    .translate-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
+    /* Fixed contrast: white text on green background */
+    .translate-btn { background: var(--green); color: #fff !important; padding: 8px 18px; border-radius: 3px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; transition: background 0.2s, transform 0.15s; display: flex; align-items: center; gap: 6px; text-decoration: none; border: 2px solid var(--green-dark); }
+    .translate-btn:hover { background: var(--green-dark); transform: translateY(-1px); color: #fff !important; }
 
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      min-height: 92vh;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-      background: var(--charcoal);
-    }
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background-image:
-        url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&q=80');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.28;
-      transform: scale(1.05);
-      animation: heroZoom 18s ease-in-out infinite alternate;
-    }
-    @keyframes heroZoom {
-      from { transform: scale(1.05); }
-      to   { transform: scale(1.12); }
-    }
+    /* ── HAMBURGER ── */
+    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; height: 3px; background: #222; border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease; width: 100%; }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-    /* Grid lines overlay */
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
+    /* ── MOBILE MENU ── */
+    .mobile-menu { display: none; position: fixed; inset: 0; z-index: 199; }
+    .mobile-menu-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.45); opacity: 0; transition: opacity 0.3s; }
+    .mobile-menu-panel { position: absolute; top: 0; right: 0; bottom: 0; width: min(320px, 85vw); background: #fff; border-left: 4px solid var(--red); transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; box-shadow: -8px 0 40px rgba(0,0,0,0.18); }
+    .mobile-menu.open { display: block; }
+    .mobile-menu.open .mobile-menu-backdrop { opacity: 1; }
+    .mobile-menu.open .mobile-menu-panel { transform: translateX(0); }
+    .mobile-menu-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 2px solid var(--lightgray); }
+    .mobile-menu-header img { height: 44px; object-fit: contain; }
+    .mobile-close { background: none; border: none; cursor: pointer; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: #444; font-size: 22px; border-radius: 4px; transition: background 0.2s; }
+    .mobile-close:hover { background: var(--lightgray); }
+    .mobile-nav-links { display: flex; flex-direction: column; padding: 16px 0; flex: 1; }
+    .mobile-nav-links a { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 20px; text-transform: uppercase; letter-spacing: 0.05em; color: #222; text-decoration: none; padding: 16px 24px; border-bottom: 1px solid var(--lightgray); transition: background 0.15s, color 0.15s; display: flex; align-items: center; gap: 12px; }
+    .mobile-nav-links a:hover { background: var(--lightgray); color: var(--red); }
+    .mobile-nav-links a .m-icon { font-size: 18px; width: 24px; text-align: center; }
+    .mobile-translate { margin: 20px 24px; background: var(--green); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: 0.05em; text-transform: uppercase; padding: 14px 20px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 3px; border: 2px solid var(--green-dark); transition: background 0.2s; }
+    .mobile-translate:hover { background: var(--green-dark); color: #fff; }
 
-    /* Red accent bar on left */
-    .hero-accent-bar {
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 6px;
-      background: linear-gradient(to bottom, var(--red), var(--red-dark));
-    }
+    /* ── HERO — light ── */
+    .hero { position: relative; min-height: 88vh; display: flex; align-items: center; overflow: hidden; background: linear-gradient(120deg, #edf7ed 0%, #f5f3ef 55%, #fff8f5 100%); }
+    .hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&q=80'); background-size: cover; background-position: center; opacity: 0.12; transform: scale(1.05); animation: heroZoom 18s ease-in-out infinite alternate; }
+    .hero-wash { position: absolute; inset: 0; background: linear-gradient(to right, rgba(237,247,237,0.9) 45%, rgba(237,247,237,0.2) 100%); }
+    @keyframes heroZoom { from{transform:scale(1.05)} to{transform:scale(1.12)} }
+    .hero-dots { position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(42,122,39,0.07) 1px, transparent 1px); background-size: 38px 38px; }
+    .hero-redbar { position: absolute; left:0; top:0; bottom:0; width:6px; background: linear-gradient(to bottom, var(--red), var(--red-dark)); }
+    .hero-visual { position: absolute; right:0; top:0; bottom:0; width:42%; overflow:hidden; }
+    .hero-visual img { width:100%; height:100%; object-fit:cover; opacity:0.5; }
+    .hero-visual-fade { position:absolute; inset:0; background: linear-gradient(to right, #edf7ed 0%, rgba(237,247,237,0.1) 70%, transparent 100%); }
+    .hero-content { position:relative; max-width:1200px; margin:0 auto; padding:80px 24px; width:100%; }
+    .hero-tag { display:inline-flex; align-items:center; gap:8px; background:var(--red); color:#fff; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:13px; letter-spacing:.12em; text-transform:uppercase; padding:6px 18px; margin-bottom:28px; clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%); animation:fadeUp 0.7s ease both; }
+    .hero-tag::before { content:''; width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.7); }
+    .hero-title { font-size:clamp(56px,8vw,100px); font-weight:900; line-height:.9; text-transform:uppercase; animation:fadeUp .7s .15s ease both; }
+    .hero-title .t-dark { color:#111; }
+    .hero-title .t-green { color:var(--green); -webkit-text-stroke:2.5px #111; paint-order:stroke fill; }
+    .hero-title .t-red   { color:var(--red);   -webkit-text-stroke:2.5px #111; paint-order:stroke fill; }
+    .hero-rule { width:80px; height:4px; background:var(--red); margin:28px 0; animation:fadeUp .7s .3s ease both; }
+    .hero-desc { font-size:18px; line-height:1.75; color:#444; max-width:540px; animation:fadeUp .7s .45s ease both; }
+    .hero-btns { display:flex; gap:16px; margin-top:40px; flex-wrap:wrap; animation:fadeUp .7s .6s ease both; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-    .hero-content {
-      position: relative;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 80px 24px;
-      width: 100%;
-    }
-
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--red);
-      color: #fff;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 6px 16px;
-      margin-bottom: 28px;
-      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
-      animation: fadeSlideIn 0.7s ease both;
-    }
-    .hero-tag::before {
-      content: '';
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.7);
-    }
-
-    .hero-title {
-      font-size: clamp(54px, 8vw, 96px);
-      font-weight: 900;
-      line-height: 0.92;
-      color: #fff;
-      text-transform: uppercase;
-      animation: fadeSlideIn 0.7s 0.15s ease both;
-    }
-    .hero-title .accent { color: var(--red); }
-    .hero-title .sub { color: var(--green-light); }
-
-    .hero-divider {
-      width: 80px;
-      height: 4px;
-      background: var(--red);
-      margin: 28px 0;
-      animation: fadeSlideIn 0.7s 0.3s ease both;
-    }
-
-    .hero-desc {
-      font-size: 18px;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.82);
-      max-width: 580px;
-      animation: fadeSlideIn 0.7s 0.45s ease both;
-    }
-
-    .hero-cta-row {
-      display: flex;
-      gap: 16px;
-      margin-top: 40px;
-      flex-wrap: wrap;
-      animation: fadeSlideIn 0.7s 0.6s ease both;
-    }
-
-    .btn-primary {
-      background: var(--red);
-      color: #fff;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 800;
-      font-size: 16px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 16px 36px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 4px 20px rgba(232,57,26,0.4);
-    }
-    .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,57,26,0.5); }
-    .btn-primary:active { transform: translateY(0); }
-
-    .btn-outline {
-      background: transparent;
-      color: #fff;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 800;
-      font-size: 16px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 14px 36px;
-      border: 2px solid rgba(255,255,255,0.4);
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: border-color 0.2s, background 0.2s, transform 0.15s;
-    }
-    .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.08); transform: translateY(-2px); }
-    .btn-outline:active { transform: translateY(0); }
-
-    /* Hero badges */
-    .hero-badges {
-      position: absolute;
-      right: 48px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      animation: fadeSlideIn 0.7s 0.8s ease both;
-    }
-    .hero-badge {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      backdrop-filter: blur(8px);
-      padding: 20px 24px;
-      text-align: center;
-      min-width: 160px;
-    }
-    .hero-badge-num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 48px;
-      font-weight: 900;
-      color: var(--red);
-      line-height: 1;
-    }
-    .hero-badge-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-      margin-top: 4px;
-    }
-
-    @keyframes fadeSlideIn {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    .btn-red  { background:var(--red);   color:#fff; font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:16px; letter-spacing:.06em; text-transform:uppercase; padding:16px 36px; border:none; cursor:pointer; text-decoration:none; display:inline-block; transition:background .2s,transform .15s,box-shadow .2s; box-shadow:0 4px 20px rgba(232,57,26,.35); }
+    .btn-red:hover  { background:var(--red-dark);   transform:translateY(-2px); box-shadow:0 8px 28px rgba(232,57,26,.45); }
+    .btn-green{ background:var(--green); color:#fff; font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:16px; letter-spacing:.06em; text-transform:uppercase; padding:16px 36px; border:none; cursor:pointer; text-decoration:none; display:inline-block; transition:background .2s,transform .15s; box-shadow:0 4px 20px rgba(42,122,39,.28); }
+    .btn-green:hover{ background:var(--green-dark); transform:translateY(-2px); }
 
     /* ── MODES BAR ── */
-    .modes-bar {
-      background: var(--green);
-      color: #fff;
-    }
-    .modes-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-    }
-    .mode-item {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 28px 32px;
-      border-right: 1px solid rgba(255,255,255,0.15);
-      transition: background 0.2s;
-    }
-    .mode-item:last-child { border-right: none; }
-    .mode-item:hover { background: var(--green-dark); }
-    .mode-icon {
-      font-size: 32px;
-      flex-shrink: 0;
-    }
-    .mode-text-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-    .mode-text-sub {
-      font-size: 13px;
-      color: rgba(255,255,255,0.7);
-      margin-top: 2px;
-    }
+    .modes-bar { background:var(--green); color:#fff; }
+    .modes-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); }
+    .mode-item { display:flex; align-items:center; gap:16px; padding:26px 32px; border-right:1px solid rgba(255,255,255,0.15); transition:background .2s; }
+    .mode-item:last-child { border-right:none; }
+    .mode-item:hover { background:var(--green-dark); }
+    .mode-icon { font-size:30px; flex-shrink:0; }
+    .mode-title { font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; }
+    .mode-sub { font-size:13px; color:rgba(255,255,255,.7); margin-top:2px; }
+
+    /* ── SHARED SECTION ── */
+    .section { max-width:1200px; margin:0 auto; padding:96px 24px; }
+    .s-label { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--red); margin-bottom:12px; }
+    .s-title { font-size:clamp(38px,5vw,60px); font-weight:900; text-transform:uppercase; line-height:.95; color:#1a1a1a; }
+    .s-rule { width:60px; height:4px; background:var(--red); margin:24px 0; }
 
     /* ── OVER ONS ── */
-    .section {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 96px 24px;
-    }
-
-    .section-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-size: clamp(38px, 5vw, 60px);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 0.95;
-      color: var(--charcoal);
-    }
-
-    .section-divider {
-      width: 60px;
-      height: 4px;
-      background: var(--red);
-      margin: 24px 0;
-    }
-
-    .over-ons-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .over-ons-body {
-      font-size: 17px;
-      line-height: 1.75;
-      color: var(--mid);
-    }
-    .over-ons-body p + p { margin-top: 20px; }
-    .over-ons-body strong { color: var(--charcoal); font-weight: 600; }
-
-    .over-ons-visual {
-      position: relative;
-    }
-    .over-ons-img {
-      width: 100%;
-      aspect-ratio: 4/3;
-      object-fit: cover;
-      display: block;
-    }
-    .over-ons-img-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(42,122,39,0.2), transparent 60%);
-    }
-    .over-ons-badge {
-      position: absolute;
-      bottom: -24px;
-      left: -24px;
-      background: var(--red);
-      color: #fff;
-      padding: 24px 28px;
-      font-family: 'Barlow Condensed', sans-serif;
-      box-shadow: 0 8px 30px rgba(232,57,26,0.35);
-    }
-    .over-ons-badge-num {
-      font-size: 52px;
-      font-weight: 900;
-      line-height: 1;
-    }
-    .over-ons-badge-text {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      opacity: 0.9;
-    }
-
-    /* ── KENMERKEN ── */
-    .kenmerken-section {
-      background: var(--charcoal);
-      padding: 80px 0;
-    }
-    .kenmerken-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    .kenmerken-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 0;
-      margin-top: 56px;
-    }
-    .kenmerk-card {
-      padding: 40px 28px;
-      border-right: 1px solid rgba(255,255,255,0.08);
-      position: relative;
-      overflow: hidden;
-      transition: background 0.3s;
-    }
-    .kenmerk-card:last-child { border-right: none; }
-    .kenmerk-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--red);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
-    }
-    .kenmerk-card:hover { background: rgba(255,255,255,0.04); }
-    .kenmerk-card:hover::before { transform: scaleX(1); }
-    .kenmerk-icon {
-      font-size: 40px;
-      margin-bottom: 20px;
-      display: block;
-    }
-    .kenmerk-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 22px;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: #fff;
-      line-height: 1.1;
-    }
-    .kenmerk-desc {
-      font-size: 14px;
-      color: rgba(255,255,255,0.5);
-      margin-top: 10px;
-      line-height: 1.6;
-    }
+    .oo-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .oo-body { font-size:17px; line-height:1.75; color:var(--mid); }
+    .oo-body p+p { margin-top:20px; }
+    .oo-body strong { color:#222; font-weight:600; }
+    .oo-visual { position:relative; }
+    .oo-img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
+    .oo-overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(42,122,39,.15),transparent 60%); }
+    .oo-badge { position:absolute; bottom:-24px; left:-24px; background:var(--red); color:#fff; padding:24px 28px; font-family:'Barlow Condensed',sans-serif; box-shadow:0 8px 30px rgba(232,57,26,.35); }
+    .oo-badge-num { font-size:52px; font-weight:900; line-height:1; }
+    .oo-badge-txt { font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; opacity:.9; }
 
     /* ── DIENSTEN ── */
-    .diensten-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      margin-top: 56px;
-    }
-    .dienst-card {
-      background: #fff;
-      padding: 48px 40px;
-      position: relative;
-      overflow: hidden;
-      border-bottom: 4px solid transparent;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
-    }
-    .dienst-card:hover {
-      border-bottom-color: var(--red);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-      transform: translateY(-4px);
-    }
-    .dienst-num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 80px;
-      font-weight: 900;
-      color: rgba(42,122,39,0.08);
-      line-height: 1;
-      position: absolute;
-      top: 16px;
-      right: 24px;
-    }
-    .dienst-icon {
-      font-size: 36px;
-      margin-bottom: 20px;
-    }
-    .dienst-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 26px;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: var(--charcoal);
-    }
-    .dienst-body {
-      font-size: 15px;
-      color: var(--mid);
-      margin-top: 12px;
-      line-height: 1.65;
-    }
+    .diensten-wrap { background:#fff; padding:80px 0; }
+    .diensten-inner { max-width:1200px; margin:0 auto; padding:0 24px; }
+
+    /* Big featured cards */
+    .featured-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:56px; }
+    .feat-card { overflow:hidden; box-shadow:0 4px 28px rgba(0,0,0,.09); transition:transform .25s,box-shadow .25s; }
+    .feat-card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,.14); }
+    .feat-img-wrap { position:relative; height:220px; overflow:hidden; }
+    .feat-img-wrap img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
+    .feat-card:hover .feat-img-wrap img { transform:scale(1.05); }
+    .feat-img-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, transparent 20%, rgba(0,0,0,.6) 100%); }
+    .feat-pill { position:absolute; top:16px; left:16px; background:var(--red); color:#fff; font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:5px 12px; }
+    .feat-body { background:#fff; padding:28px 32px 36px; border-top:4px solid var(--green); }
+    .feat-title { font-family:'Barlow Condensed',sans-serif; font-size:42px; font-weight:900; text-transform:uppercase; line-height:1; margin-bottom:14px; }
+    .feat-title.green { color:var(--green); -webkit-text-stroke:2px #111; paint-order:stroke fill; }
+    .feat-title.red   { color:var(--red);   -webkit-text-stroke:2px #111; paint-order:stroke fill; }
+    .feat-desc { font-size:15px; line-height:1.72; color:var(--mid); }
+    .feat-desc strong { color:#222; font-weight:600; }
+
+    /* Secondary grid */
+    .secondary-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; margin-top:20px; }
+    .sec-card { background:var(--lightgray); padding:36px 28px; position:relative; overflow:hidden; border-bottom:4px solid transparent; transition:border-color .3s,background .2s,transform .2s,box-shadow .2s; }
+    .sec-card:hover { border-bottom-color:var(--red); background:#fff; transform:translateY(-4px); box-shadow:0 8px 24px rgba(0,0,0,.08); }
+    .sec-num { font-family:'Barlow Condensed',sans-serif; font-size:72px; font-weight:900; color:rgba(42,122,39,.06); line-height:1; position:absolute; top:10px; right:18px; }
+    .sec-icon { font-size:30px; margin-bottom:14px; }
+    .sec-title { font-family:'Barlow Condensed',sans-serif; font-size:24px; font-weight:800; text-transform:uppercase; color:#1a1a1a; }
+    .sec-body { font-size:14px; color:var(--mid); margin-top:8px; line-height:1.65; }
+
+    /* ── KENMERKEN ── */
+    .ken-wrap { background:linear-gradient(135deg,#e6f5e6 0%,#f0f8f0 100%); padding:80px 0; border-top:4px solid var(--green); border-bottom:4px solid var(--green); }
+    .ken-inner { max-width:1200px; margin:0 auto; padding:0 24px; }
+    .ken-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:0; margin-top:56px; }
+    .ken-card { padding:36px 22px; border-right:1px solid rgba(42,122,39,.14); position:relative; overflow:hidden; transition:background .3s; }
+    .ken-card:last-child { border-right:none; }
+    .ken-card::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; background:var(--red); transform:scaleX(0); transform-origin:left; transition:transform .3s ease; }
+    .ken-card:hover { background:rgba(255,255,255,.7); }
+    .ken-card:hover::before { transform:scaleX(1); }
+    .ken-icon { font-size:36px; margin-bottom:16px; display:block; }
+    .ken-title { font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:800; text-transform:uppercase; color:var(--green-dark); -webkit-text-stroke:1px #111; paint-order:stroke fill; line-height:1.1; }
+    .ken-desc { font-size:13px; color:#555; margin-top:8px; line-height:1.6; }
 
     /* ── CONTACT ── */
-    .contact-section {
-      background: #fff;
-    }
-    .contact-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 96px 24px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-    .contact-detail {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 20px 0;
-      border-bottom: 1px solid #eee;
-    }
-    .contact-detail:last-of-type { border-bottom: none; }
-    .contact-icon {
-      width: 44px;
-      height: 44px;
-      background: var(--red);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-    .contact-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--steel);
-      margin-bottom: 4px;
-    }
-    .contact-value {
-      font-size: 16px;
-      color: var(--charcoal);
-      font-weight: 500;
-      line-height: 1.5;
-    }
-    .contact-value a {
-      color: var(--green);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .contact-value a:hover { color: var(--green-dark); }
+    .contact-wrap { background:#fff; }
+    .contact-inner { max-width:1200px; margin:0 auto; padding:96px 24px; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+    .c-detail { display:flex; align-items:flex-start; gap:16px; padding:18px 0; border-bottom:1px solid #eee; }
+    .c-detail:last-of-type { border-bottom:none; }
+    .c-icon { width:44px; height:44px; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+    .c-label { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--steel); margin-bottom:4px; }
+    .c-value { font-size:16px; color:#222; font-weight:500; line-height:1.5; }
+    .c-value a { color:var(--green); text-decoration:none; transition:color .2s; }
+    .c-value a:hover { color:var(--green-dark); }
+    .form-head { font-family:'Barlow Condensed',sans-serif; font-size:32px; font-weight:800; text-transform:uppercase; color:#1a1a1a; margin-bottom:28px; }
+    .fg { margin-bottom:18px; }
+    .fl { display:block; font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--steel); margin-bottom:7px; }
+    .fc { width:100%; border:2px solid #ddd; padding:13px 16px; font-family:'Barlow',sans-serif; font-size:15px; color:#222; background:var(--lightgray); outline:none; transition:border-color .2s,background .2s; }
+    .fc:focus { border-color:var(--green); background:#fff; }
+    textarea.fc { resize:vertical; min-height:116px; }
+    .f-submit { background:var(--red); color:#fff; border:none; padding:16px 40px; font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:16px; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; width:100%; transition:background .2s,transform .15s; box-shadow:0 4px 16px rgba(232,57,26,.26); }
+    .f-submit:hover { background:var(--red-dark); transform:translateY(-2px); }
+    .f-submit:active { transform:translateY(0); }
 
-    .contact-form-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 32px;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: var(--charcoal);
-      margin-bottom: 28px;
-    }
-    .form-group { margin-bottom: 20px; }
-    .form-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--steel);
-      margin-bottom: 8px;
-    }
-    .form-control {
-      width: 100%;
-      border: 2px solid #e8e8e8;
-      padding: 14px 18px;
-      font-family: 'Barlow', sans-serif;
-      font-size: 15px;
-      color: var(--charcoal);
-      background: #fafafa;
-      outline: none;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .form-control:focus { border-color: var(--green); background: #fff; }
-    textarea.form-control { resize: vertical; min-height: 120px; }
-    .form-submit {
-      background: var(--red);
-      color: #fff;
-      border: none;
-      padding: 16px 40px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 800;
-      font-size: 16px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      cursor: pointer;
-      width: 100%;
-      transition: background 0.2s, transform 0.15s;
-      box-shadow: 0 4px 16px rgba(232,57,26,0.3);
-    }
-    .form-submit:hover { background: var(--red-dark); transform: translateY(-2px); }
-    .form-submit:active { transform: translateY(0); }
-
-    /* ── MAP STRIP ── */
-    .map-strip {
-      width: 100%;
-      height: 320px;
-      background: #d0d8d4;
-      position: relative;
-      overflow: hidden;
-    }
-    .map-strip iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      filter: grayscale(0.3) contrast(1.05);
-    }
+    /* ── MAP ── */
+    .map-strip { width:100%; height:300px; overflow:hidden; }
+    .map-strip iframe { width:100%; height:100%; border:none; filter:grayscale(.2); }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--charcoal);
-      color: rgba(255,255,255,0.5);
-      padding: 40px 24px;
-      text-align: center;
-    }
-    .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .footer-logo img { height: 44px; opacity: 0.7; }
-    .footer-copy { font-size: 13px; }
-    .footer-red { color: var(--red); font-weight: 600; }
+    footer { background:var(--green-dark); color:rgba(255,255,255,.6); padding:36px 24px; }
+    .footer-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+    .footer-logo img { height:40px; filter:brightness(0) invert(1); opacity:.85; }
+    .footer-copy { font-size:13px; }
+    .fa { color:#f04e2e; font-weight:600; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 1024px) {
-      .hero-badges { display: none; }
-      .kenmerken-grid { grid-template-columns: repeat(3, 1fr); }
-      .kenmerk-card:nth-child(3) { border-right: none; }
-    }
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .modes-inner { grid-template-columns: 1fr; }
-      .mode-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); }
-      .mode-item:last-child { border-bottom: none; }
-      .over-ons-grid { grid-template-columns: 1fr; gap: 48px; }
-      .over-ons-badge { bottom: -16px; left: -8px; }
-      .kenmerken-grid { grid-template-columns: repeat(2, 1fr); }
-      .kenmerk-card { border-right: 1px solid rgba(255,255,255,0.08); }
-      .kenmerk-card:nth-child(even) { border-right: none; }
-      .diensten-grid { grid-template-columns: 1fr; }
-      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
-    }
-    @media (max-width: 480px) {
-      .kenmerken-grid { grid-template-columns: 1fr; }
-      .kenmerk-card { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
-    }
+    /* Reveal */
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease,transform .7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
 
-    /* Scroll reveal */
-    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* Highlight text */
-    .text-red { color: var(--red); }
-    .text-green { color: var(--green); }
-
-    /* Google Translate notification bar */
-    .gt-bar {
-      background: var(--green);
-      color: #fff;
-      text-align: center;
-      padding: 10px 24px;
-      font-size: 13px;
-      font-family: 'Barlow', sans-serif;
-      display: none;
+    /* Responsive */
+    @media(max-width:1024px){ .hero-visual{display:none;} .ken-grid{grid-template-columns:repeat(3,1fr);} }
+    @media(max-width:768px){
+      .nav-links{display:none;}
+      .hamburger{display:flex;}
+      .modes-inner{grid-template-columns:1fr;}
+      .mode-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.15);}
+      .mode-item:last-child{border-bottom:none;}
+      .oo-grid{grid-template-columns:1fr;gap:48px;}
+      .oo-badge{bottom:-16px;left:-8px;}
+      .featured-grid{grid-template-columns:1fr;}
+      .secondary-grid{grid-template-columns:1fr;}
+      .ken-grid{grid-template-columns:repeat(2,1fr);}
+      .ken-card:nth-child(even){border-right:none;}
+      .contact-inner{grid-template-columns:1fr;gap:48px;}
     }
-    .gt-bar.show { display: block; }
-    .gt-bar a { color: #fff; text-decoration: underline; }
+    @media(max-width:480px){
+      .ken-grid{grid-template-columns:1fr;}
+      .ken-card{border-right:none;border-bottom:1px solid rgba(42,122,39,.14);}
+    }
   </style>
 </head>
 <body>
 
-<!-- Google Translate element (hidden) -->
 <div id="google_translate_element" style="display:none;"></div>
 
-<!-- ── NAV ── -->
+<!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-logo">
-      <img src="logo.jpg" alt="ABST Warehouse logo" />
-    </a>
+    <a href="#"><div class="nav-logo"><img src="logo.jpg" alt="ABST Warehouse" /></div></a>
     <div class="nav-links">
       <a href="#over-ons">Over ons</a>
       <a href="#diensten">Diensten</a>
+      <a href="#kenmerken">Kenmerken</a>
       <a href="#contact">Contact</a>
-      <a href="#" class="translate-btn" onclick="translatePage(event)">
-        🌐 English
-      </a>
+      <a href="#" class="translate-btn" onclick="translatePage(event)">🌐 English</a>
     </div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu openen" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-backdrop" onclick="closeMenu()"></div>
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-header">
+      <img src="logo.jpg" alt="ABST Warehouse" />
+      <button class="mobile-close" onclick="closeMenu()" aria-label="Menu sluiten">✕</button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="#over-ons" onclick="closeMenu()"><span class="m-icon">🏭</span> Over ons</a>
+      <a href="#diensten" onclick="closeMenu()"><span class="m-icon">📦</span> Diensten</a>
+      <a href="#kenmerken" onclick="closeMenu()"><span class="m-icon">⭐</span> Kenmerken</a>
+      <a href="#contact" onclick="closeMenu()"><span class="m-icon">✉️</span> Contact</a>
+    </nav>
+    <a href="#" class="mobile-translate" onclick="translatePage(event)">🌐 Switch to English</a>
+  </div>
+</div>
+
+<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-accent-bar"></div>
-
+  <div class="hero-wash"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-redbar"></div>
+  <div class="hero-visual">
+    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=900&q=80" alt="Warehouse" />
+    <div class="hero-visual-fade"></div>
+  </div>
   <div class="hero-content">
     <div class="hero-tag">Maasvlakte Rotterdam</div>
     <h1 class="hero-title">
-      ABST<br>
-      <span class="sub">Ware</span><span class="accent">house</span>
+      <span class="t-dark">ABST</span><br>
+      <span class="t-green">Ware</span><span class="t-red">house</span>
     </h1>
-    <div class="hero-divider"></div>
-    <p class="hero-desc">
-      Gelegen in het hart van de Rotterdamse haven biedt ABST Warehouse op de Maasvlakte een strategische locatie voor opslag, distributie en logistieke dienstverlening.
-    </p>
-    <div class="hero-cta-row">
-      <a href="#contact" class="btn-primary">Neem contact op</a>
-      <a href="#over-ons" class="btn-outline">Meer informatie</a>
-    </div>
-  </div>
-
-  <div class="hero-badges">
-    <div class="hero-badge">
-      <div class="hero-badge-num">3</div>
-      <div class="hero-badge-label">Multimodale verbindingen</div>
-    </div>
-    <div class="hero-badge">
-      <div class="hero-badge-num">24/7</div>
-      <div class="hero-badge-label">Operationeel</div>
-    </div>
-    <div class="hero-badge">
-      <div class="hero-badge-num">NL</div>
-      <div class="hero-badge-label">Poort naar Europa</div>
+    <div class="hero-rule"></div>
+    <p class="hero-desc">Gelegen in het hart van de Rotterdamse haven biedt ABST Warehouse op de Maasvlakte een strategische locatie voor opslag, distributie en logistieke dienstverlening.</p>
+    <div class="hero-btns">
+      <a href="#diensten" class="btn-red">Onze diensten</a>
+      <a href="#contact" class="btn-green">Neem contact op</a>
     </div>
   </div>
 </section>
 
-<!-- ── MODES BAR ── -->
+<!-- MODES BAR -->
 <div class="modes-bar">
   <div class="modes-inner">
-    <div class="mode-item">
-      <span class="mode-icon">🚢</span>
-      <div>
-        <div class="mode-text-title">Zee</div>
-        <div class="mode-text-sub">Directe haventoegang Maasvlakte</div>
-      </div>
-    </div>
-    <div class="mode-item">
-      <span class="mode-icon">🚛</span>
-      <div>
-        <div class="mode-text-title">Weg</div>
-        <div class="mode-text-sub">Optimale wegverbindingen</div>
-      </div>
-    </div>
-    <div class="mode-item">
-      <span class="mode-icon">🚂</span>
-      <div>
-        <div class="mode-text-title">Spoor</div>
-        <div class="mode-text-sub">Railverbindingen naar Europa</div>
-      </div>
-    </div>
+    <div class="mode-item"><span class="mode-icon">🚢</span><div><div class="mode-title">Zee</div><div class="mode-sub">Directe haventoegang Maasvlakte</div></div></div>
+    <div class="mode-item"><span class="mode-icon">🚛</span><div><div class="mode-title">Weg</div><div class="mode-sub">Optimale wegverbindingen</div></div></div>
+    <div class="mode-item"><span class="mode-icon">🚂</span><div><div class="mode-title">Spoor</div><div class="mode-sub">Railverbindingen naar Europa</div></div></div>
   </div>
 </div>
 
-<!-- ── OVER ONS ── -->
+<!-- OVER ONS -->
 <section id="over-ons">
   <div class="section">
-    <div class="over-ons-grid">
+    <div class="oo-grid">
       <div class="reveal">
-        <div class="section-label">Over ABST Warehouse</div>
-        <h2 class="section-title">Efficiëntie &<br><span class="text-red">logistiek</span><br>op topniveau</h2>
-        <div class="section-divider"></div>
-        <div class="over-ons-body">
+        <div class="s-label">Over ABST Warehouse</div>
+        <h2 class="s-title"><span class="ol-green">Efficiëntie</span> &<br><span class="ol-red">logistiek</span><br>op topniveau</h2>
+        <div class="s-rule"></div>
+        <div class="oo-body">
           <p>Alle <strong>multimodale oplossingen</strong> binnen handbereik: zee, weg en spoor! ABST Warehouse biedt een totaal concept aan logistieke dienstverlening voor im- en export.</p>
           <p>ABST is het warehouse waar <strong>alle facetten bij elkaar komen</strong>. Laat ons weten waarmee we u van dienst kunnen zijn!</p>
         </div>
       </div>
-      <div class="over-ons-visual reveal" style="transition-delay:0.15s">
-        <img class="over-ons-img" src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&q=80" alt="Warehouse interior" />
-        <div class="over-ons-img-overlay"></div>
-        <div class="over-ons-badge">
-          <div class="over-ons-badge-num">100%</div>
-          <div class="over-ons-badge-text">Klantgericht</div>
+      <div class="oo-visual reveal" style="transition-delay:.15s">
+        <img class="oo-img" src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&q=80" alt="Warehouse interior" />
+        <div class="oo-overlay"></div>
+        <div class="oo-badge">
+          <div class="oo-badge-num">100%</div>
+          <div class="oo-badge-txt">Klantgericht</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── KENMERKEN ── -->
-<div class="kenmerken-section">
-  <div class="kenmerken-inner">
+<!-- DIENSTEN -->
+<div id="diensten" class="diensten-wrap">
+  <div class="diensten-inner">
     <div class="reveal">
-      <div class="section-label" style="color:rgba(255,255,255,0.5)">Waarom ABST</div>
-      <h2 class="section-title" style="color:#fff">Onze <span class="text-red">kenmerken</span></h2>
+      <div class="s-label">Onze dienstverlening</div>
+      <h2 class="s-title">Totaal <span class="ol-red">concept</span><br><span class="ol-green">logistiek</span></h2>
+      <div class="s-rule"></div>
     </div>
-    <div class="kenmerken-grid">
-      <div class="kenmerk-card reveal">
-        <span class="kenmerk-icon">🎯</span>
-        <div class="kenmerk-title">Klant&shy;gericht & flexibel</div>
-        <div class="kenmerk-desc">Uw wensen staan altijd centraal in onze werkwijze.</div>
+
+    <!-- Featured: Crossdocking & FyCo -->
+    <div class="featured-grid">
+      <div class="feat-card reveal">
+        <div class="feat-img-wrap">
+          <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80" alt="Crossdocking" />
+          <div class="feat-img-overlay"></div>
+          <div class="feat-pill">Kerndienst</div>
+        </div>
+        <div class="feat-body">
+          <div class="feat-title green">Crossdocking</div>
+          <div class="feat-desc">De goederen gaan bij ABST <strong>direct van inkomend naar uitgaand transport, zonder opslag</strong>. Onze crossdock teams staan klaar om direct te handelen! Dat bespaart tijd, kosten en versnelt uw logistieke oplossing!</div>
+        </div>
       </div>
-      <div class="kenmerk-card reveal" style="transition-delay:0.1s">
-        <span class="kenmerk-icon">🕐</span>
-        <div class="kenmerk-title">Brede openings&shy;tijden</div>
-        <div class="kenmerk-desc">Ruime beschikbaarheid voor al uw logistieke behoeften.</div>
+      <div class="feat-card reveal" style="transition-delay:.12s">
+        <div class="feat-img-wrap">
+          <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80" alt="Douane controle" />
+          <div class="feat-img-overlay"></div>
+          <div class="feat-pill">Kerndienst</div>
+        </div>
+        <div class="feat-body" style="border-top-color:var(--red);">
+          <div class="feat-title red">FyCo</div>
+          <div class="feat-desc">FyCo is de begeleiding bij een <strong>fysieke controle door de douane</strong>. Wij zorgen voor een soepel en efficiënt verloop van het controleproces, met de juiste ondersteuning en afstemming, zodat vertragingen tot een minimum worden beperkt!</div>
+        </div>
       </div>
-      <div class="kenmerk-card reveal" style="transition-delay:0.2s">
-        <span class="kenmerk-icon">⚡</span>
-        <div class="kenmerk-title">Pro-activiteit</div>
-        <div class="kenmerk-desc">Wij denken vooruit en handelen proactief voor u.</div>
+    </div>
+
+    <!-- Secondary -->
+    <div class="secondary-grid">
+      <div class="sec-card reveal" style="transition-delay:.05s">
+        <div class="sec-num">01</div>
+        <div class="sec-icon">📦</div>
+        <div class="sec-title">Opslag</div>
+        <div class="sec-body">Veilige en efficiënte opslagoplossingen op strategische locatie aan de Maasvlakte.</div>
       </div>
-      <div class="kenmerk-card reveal" style="transition-delay:0.3s">
-        <span class="kenmerk-icon">🔄</span>
-        <div class="kenmerk-title">Flexibiliteit</div>
-        <div class="kenmerk-desc">Snel schakelen op veranderende marktomstandigheden.</div>
+      <div class="sec-card reveal" style="transition-delay:.1s">
+        <div class="sec-num">02</div>
+        <div class="sec-icon">🔄</div>
+        <div class="sec-title">Distributie</div>
+        <div class="sec-body">Snelle distributie via zee, weg en spoor naar uw bestemming in Europa en wereldwijd.</div>
       </div>
-      <div class="kenmerk-card reveal" style="transition-delay:0.4s">
-        <span class="kenmerk-icon">💪</span>
-        <div class="kenmerk-title">Sterk team</div>
-        <div class="kenmerk-desc">Ervaren professionals met kennis van de logistieke sector.</div>
+      <div class="sec-card reveal" style="transition-delay:.15s">
+        <div class="sec-num">03</div>
+        <div class="sec-icon">🌍</div>
+        <div class="sec-title">Im- & export</div>
+        <div class="sec-body">Volledig ontzorgd totaalconcept voor al uw import- en exportactiviteiten vanuit Rotterdam.</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ── DIENSTEN ── -->
-<section id="diensten">
-  <div class="section">
+<!-- KENMERKEN -->
+<div id="kenmerken" class="ken-wrap">
+  <div class="ken-inner">
     <div class="reveal">
-      <div class="section-label">Onze dienstverlening</div>
-      <h2 class="section-title">Totaal <span class="text-red">concept</span><br>logistiek</h2>
-      <div class="section-divider"></div>
+      <div class="s-label" style="color:var(--green-dark)">Waarom ABST</div>
+      <h2 class="s-title">Onze <span class="ol-green">kenmerken</span></h2>
     </div>
-    <div class="diensten-grid">
-      <div class="dienst-card reveal">
-        <div class="dienst-num">01</div>
-        <div class="dienst-icon">📦</div>
-        <div class="dienst-title">Opslag</div>
-        <div class="dienst-body">Veilige en efficiënte opslagoplossingen op strategische locatie aan de Maasvlakte voor uw goederen.</div>
-      </div>
-      <div class="dienst-card reveal" style="transition-delay:0.1s">
-        <div class="dienst-num">02</div>
-        <div class="dienst-icon">🔄</div>
-        <div class="dienst-title">Distributie</div>
-        <div class="dienst-body">Snelle en betrouwbare distributie via zee, weg en spoor naar uw bestemming in Europa en wereldwijd.</div>
-      </div>
-      <div class="dienst-card reveal" style="transition-delay:0.2s">
-        <div class="dienst-num">03</div>
-        <div class="dienst-icon">🌍</div>
-        <div class="dienst-title">Im- & export</div>
-        <div class="dienst-body">Volledig ontzorgd totaalconcept voor al uw import- en exportactiviteiten vanuit Rotterdam.</div>
-      </div>
+    <div class="ken-grid">
+      <div class="ken-card reveal"><span class="ken-icon">🎯</span><div class="ken-title">Klantgericht &amp; flexibel</div><div class="ken-desc">Uw wensen staan altijd centraal in onze werkwijze.</div></div>
+      <div class="ken-card reveal" style="transition-delay:.1s"><span class="ken-icon">🕐</span><div class="ken-title">Brede openingstijden</div><div class="ken-desc">Ruime beschikbaarheid voor al uw logistieke behoeften.</div></div>
+      <div class="ken-card reveal" style="transition-delay:.2s"><span class="ken-icon">⚡</span><div class="ken-title">Pro-activiteit</div><div class="ken-desc">Wij denken vooruit en handelen proactief voor u.</div></div>
+      <div class="ken-card reveal" style="transition-delay:.3s"><span class="ken-icon">🔄</span><div class="ken-title">Flexibiliteit</div><div class="ken-desc">Snel schakelen op veranderende marktomstandigheden.</div></div>
+      <div class="ken-card reveal" style="transition-delay:.4s"><span class="ken-icon">💪</span><div class="ken-title">Sterk team</div><div class="ken-desc">Ervaren professionals met kennis van de logistieke sector.</div></div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ── CONTACT ── -->
-<section id="contact" class="contact-section">
+<!-- CONTACT -->
+<section id="contact" class="contact-wrap">
   <div class="contact-inner">
     <div class="reveal">
-      <div class="section-label">Bereikbaarheid</div>
-      <h2 class="section-title">Neem <span class="text-red">contact</span><br>op</h2>
-      <div class="section-divider"></div>
-
-      <div class="contact-detail">
-        <div class="contact-icon">📍</div>
-        <div>
-          <div class="contact-label">Adres</div>
-          <div class="contact-value">
-            Makassarstraat 1<br>
-            3199 LL Maasvlakte Rotterdam
-          </div>
-        </div>
-      </div>
-
-      <div class="contact-detail">
-        <div class="contact-icon">✉️</div>
-        <div>
-          <div class="contact-label">Algemeen</div>
-          <div class="contact-value">
-            <a href="mailto:info@abstwarehouse.nl">info@abstwarehouse.nl</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="contact-detail">
-        <div class="contact-icon">💼</div>
-        <div>
-          <div class="contact-label">Sales</div>
-          <div class="contact-value">
-            <a href="mailto:sales@abstwarehouse.nl">sales@abstwarehouse.nl</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="contact-detail">
-        <div class="contact-icon">🏢</div>
-        <div>
-          <div class="contact-label">Kantoor</div>
-          <div class="contact-value">
-            <a href="mailto:office@abstwarehouse.nl">office@abstwarehouse.nl</a>
-          </div>
-        </div>
-      </div>
+      <div class="s-label">Bereikbaarheid</div>
+      <h2 class="s-title">Neem <span class="ol-red">contact</span><br>op</h2>
+      <div class="s-rule"></div>
+      <div class="c-detail"><div class="c-icon">📍</div><div><div class="c-label">Adres</div><div class="c-value">Makassarstraat 1<br>3199 LL Maasvlakte Rotterdam</div></div></div>
+      <div class="c-detail"><div class="c-icon">✉️</div><div><div class="c-label">Algemeen</div><div class="c-value"><a href="mailto:info@abstwarehouse.nl">info@abstwarehouse.nl</a></div></div></div>
+      <div class="c-detail"><div class="c-icon">💼</div><div><div class="c-label">Sales</div><div class="c-value"><a href="mailto:sales@abstwarehouse.nl">sales@abstwarehouse.nl</a></div></div></div>
+      <div class="c-detail"><div class="c-icon">🏢</div><div><div class="c-label">Kantoor</div><div class="c-value"><a href="mailto:office@abstwarehouse.nl">office@abstwarehouse.nl</a></div></div></div>
     </div>
-
-    <div class="reveal" style="transition-delay:0.15s">
-      <div class="contact-form-title">Stuur ons een bericht</div>
-      <div>
-        <div class="form-group">
-          <label class="form-label">Naam</label>
-          <input type="text" class="form-control" placeholder="Uw naam" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Bedrijf</label>
-          <input type="text" class="form-control" placeholder="Uw bedrijf" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">E-mailadres</label>
-          <input type="email" class="form-control" placeholder="uw@email.nl" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Bericht</label>
-          <textarea class="form-control" placeholder="Waarmee kunnen wij u van dienst zijn?"></textarea>
-        </div>
-        <button class="form-submit">Verstuur bericht →</button>
-      </div>
+    <div class="reveal" style="transition-delay:.15s">
+      <div class="form-head">Stuur ons een bericht</div>
+      <div class="fg"><label class="fl">Naam</label><input type="text" class="fc" placeholder="Uw naam" /></div>
+      <div class="fg"><label class="fl">Bedrijf</label><input type="text" class="fc" placeholder="Uw bedrijf" /></div>
+      <div class="fg"><label class="fl">E-mailadres</label><input type="email" class="fc" placeholder="uw@email.nl" /></div>
+      <div class="fg"><label class="fl">Bericht</label><textarea class="fc" placeholder="Waarmee kunnen wij u van dienst zijn?"></textarea></div>
+      <button class="f-submit">Verstuur bericht →</button>
     </div>
   </div>
 </section>
 
-<!-- ── MAP ── -->
+<!-- MAP -->
 <div class="map-strip">
-  <iframe
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2460.0!2d4.0!3d51.95!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c5b7!2sMaasvlakte%2C%20Rotterdam!5e0!3m2!1snl!2snl!4v1"
-    allowfullscreen=""
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade">
-  </iframe>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2460.0!2d4.0!3d51.95!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c5b7!2sMaasvlakte%2C%20Rotterdam!5e0!3m2!1snl!2snl!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo">
-      <img src="logo.jpg" alt="ABST Warehouse" />
-    </div>
-    <div class="footer-copy">
-      © 2024 <span class="footer-red">ABST Warehouse</span> · Makassarstraat 1, 3199 LL Maasvlakte Rotterdam
-    </div>
-    <div style="font-size:13px;">
-      <a href="mailto:info@abstwarehouse.nl" style="color:rgba(255,255,255,0.5); text-decoration:none;">info@abstwarehouse.nl</a>
-    </div>
+    <div class="footer-logo"><img src="logo.jpg" alt="ABST Warehouse" /></div>
+    <div class="footer-copy">© 2025 <span class="fa">ABST Warehouse</span> · Makassarstraat 1, 3199 LL Maasvlakte Rotterdam</div>
+    <div style="font-size:13px;"><a href="mailto:info@abstwarehouse.nl" style="color:rgba(255,255,255,.5);text-decoration:none;">info@abstwarehouse.nl</a></div>
   </div>
 </footer>
 
-<!-- Scripts -->
 <script>
-  // Scroll reveal
   const revealEls = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  revealEls.forEach(el => observer.observe(el));
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => obs.observe(el));
 
-  // Google Translate
   function translatePage(e) {
     e.preventDefault();
-    // Load Google Translate and switch to English
-    if (!window._gtLoaded) {
-      window._gtLoaded = true;
-      const script = document.createElement('script');
-      script.src = 'https://translate.google.com/translate?u=' +
-        encodeURIComponent(window.location.href) + '&hl=en&sl=nl&tl=en&ie=UTF-8&oe=UTF-8';
-      // Open in new tab as a translated version
-    }
-    // Open Google Translate version
-    const url = 'https://translate.google.com/translate?sl=nl&tl=en&u=' + encodeURIComponent(window.location.href);
-    window.open(url, '_blank');
+    window.open('https://translate.google.com/translate?sl=nl&tl=en&u=' + encodeURIComponent(window.location.href), '_blank');
   }
-</script>
 
-<!-- Google Translate widget script (optional embed) -->
+  function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.getElementById('hamburgerBtn');
+    const isOpen = menu.classList.contains('open');
+    if (isOpen) { closeMenu(); } else { openMenu(); }
+  }
+  function openMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.getElementById('hamburgerBtn');
+    menu.classList.add('open');
+    btn.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.getElementById('hamburgerBtn');
+    menu.classList.remove('open');
+    btn.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  // Close on Escape
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+</script>
 <script type="text/javascript">
 function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'nl',
-    includedLanguages: 'en',
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-    autoDisplay: false
-  }, 'google_translate_element');
+  new google.translate.TranslateElement({ pageLanguage:'nl', includedLanguages:'en', autoDisplay:false }, 'google_translate_element');
 }
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
 </body>
 </html>
